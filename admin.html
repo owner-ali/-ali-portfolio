@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard Project Details</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#021421,#032f46);
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+}
+
+.back{
+display:inline-block;
+padding:10px 18px;
+background:#38bdf8;
+color:#021421;
+text-decoration:none;
+border-radius:10px;
+font-weight:600;
+margin-bottom:20px;
+transition:.3s;
+}
+
+.back:hover{
+transform:scale(1.05);
+background:white;
+}
+
+h1{
+color:#38bdf8;
+font-size:34px;
+margin-bottom:10px;
+}
+
+p{
+color:#94a3b8;
+line-height:1.7;
+}
+
+.section{
+background:#061f30;
+padding:20px;
+border-radius:20px;
+margin-top:20px;
+border:1px solid rgba(56,189,248,.2);
+}
+
+img{
+width:100%;
+border-radius:15px;
+margin-top:15px;
+}
+
+.badges{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:10px;
+}
+
+.badge{
+padding:6px 12px;
+background:rgba(56,189,248,.15);
+border:1px solid rgba(56,189,248,.3);
+border-radius:10px;
+font-size:13px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+margin-top:15px;
+}
+
+.card{
+background:#04131f;
+padding:15px;
+border-radius:15px;
+border:1px solid rgba(56,189,248,.2);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 0 20px rgba(56,189,248,.3);
+}
+
+.card h3{
+color:#38bdf8;
+margin-bottom:8px;
+}
+
+.hero-img{
+height:320px;
+object-fit:cover;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-top:15px;
+}
+
+.stat{
+background:#04131f;
+padding:15px;
+border-radius:15px;
+text-align:center;
+border:1px solid rgba(56,189,248,.2);
+}
+
+.stat h2{
+color:#38bdf8;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back">⬅ Back to Portfolio</a>
+
+<h1>📊 Admin Dashboard UI Project</h1>
+
+<p>
+This project is a modern admin dashboard interface designed for analytics and data management.
+It includes charts, statistics cards, and responsive UI layout.
+</p>
+
+<div class="section">
+<h2 style="color:#38bdf8;">📌 Technologies Used</h2>
+
+<div class="badges">
+<span class="badge">HTML5</span>
+<span class="badge">CSS3</span>
+<span class="badge">JavaScript</span>
+<span class="badge">Charts UI</span>
+<span class="badge">Responsive Design</span>
+</div>
+</div>
+
+<div class="section">
+<h2 style="color:#38bdf8;">📈 Dashboard Stats</h2>
+
+<div class="stats">
+
+<div class="stat">
+<h2>1.2K</h2>
+<p>Users</p>
+</div>
+
+<div class="stat">
+<h2>850</h2>
+<p>Sales</p>
+</div>
+
+<div class="stat">
+<h2>320</h2>
+<p>Orders</p>
+</div>
+
+<div class="stat">
+<h2>98%</h2>
+<p>Performance</p>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2 style="color:#38bdf8;">⚙ Features</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>📊 Analytics</h3>
+<p>Real-time data visualization and performance tracking.</p>
+</div>
+
+<div class="card">
+<h3>📱 Responsive UI</h3>
+<p>Fully optimized for mobile, tablet and desktop.</p>
+</div>
+
+<div class="card">
+<h3>🎨 Modern Design</h3>
+<p>Clean dashboard layout with dark professional theme.</p>
+</div>
+
+<div class="card">
+<h3>⚡ Fast Interface</h3>
+<p>Lightweight structure with smooth interactions.</p>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2 style="color:#38bdf8;">📷 Preview</h2>
+<img class="hero-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71" alt="dashboard">
+</div>
+
+<div class="section">
+<h2 style="color:#38bdf8;">💡 My Role</h2>
+<p>
+I designed and developed this dashboard UI focusing on data visualization,
+user experience, and clean admin interface layout.
+</p>
+</div>
+
+</div>
+
+</body>
+</html>

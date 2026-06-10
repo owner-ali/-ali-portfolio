@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Dashboard Project</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#021421,#032f46);
+color:white;
+padding:40px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+background:#031827;
+padding:30px;
+border-radius:20px;
+border:1px solid #38bdf8;
+box-shadow:0 0 30px rgba(56,189,248,.3);
+animation:fadeIn .8s ease;
+}
+
+h1{
+color:#38bdf8;
+margin-bottom:10px;
+}
+
+img{
+width:100%;
+border-radius:15px;
+margin:20px 0;
+box-shadow:0 0 20px rgba(0,0,0,.4);
+}
+
+h3{
+margin-top:20px;
+color:#38bdf8;
+}
+
+p{
+color:#94a3b8;
+line-height:1.7;
+margin-top:10px;
+}
+
+.badges{
+margin-top:15px;
+}
+
+.badge{
+display:inline-block;
+padding:6px 12px;
+margin:5px;
+border-radius:8px;
+font-size:12px;
+background:rgba(56,189,248,.15);
+border:1px solid rgba(56,189,248,.3);
+color:white;
+transition:.3s;
+}
+
+.badge:hover{
+background:#38bdf8;
+color:#021421;
+transform:scale(1.05);
+}
+
+.back-btn{
+display:inline-block;
+margin-top:25px;
+padding:12px 20px;
+background:#ec4899;
+color:white;
+text-decoration:none;
+border-radius:10px;
+transition:.3s;
+}
+
+.back-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #ec4899;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Developer Dashboard</h1>
+
+<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Developer Dashboard">
+
+<h3>Overview</h3>
+<p>
+Developer Dashboard ek advanced web application hai jo developers ko apne projects, tasks aur API performance ko track karne ke liye banaya gaya hai.
+Is ka UI modern aur clean hai jisme real-time data management system diya gaya hai.
+</p>
+
+<h3>Key Features</h3>
+<p>
+✔ Task Management System <br>
+✔ API Monitoring Panel <br>
+✔ Project Analytics Dashboard <br>
+✔ Real-time Data Updates <br>
+✔ Responsive Admin UI
+</p>
+
+<h3>Technologies Used</h3>
+
+<div class="badges">
+<span class="badge">HTML</span>
+<span class="badge">CSS</span>
+<span class="badge">JavaScript</span>
+<span class="badge">Node JS</span>
+<span class="badge">React JS</span>
+<span class="badge">MongoDB</span>
+</div>
+
+<a href="index.html" class="back-btn">← Back to Portfolio</a>
+
+</div>
+
+</body>
+</html>

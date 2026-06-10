@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services - Ali Hassan</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:radial-gradient(circle at top,#0ea5e9 0%,transparent 40%),
+radial-gradient(circle at bottom,#ec4899 0%,transparent 40%),
+linear-gradient(135deg,#021421,#031827);
+color:white;
+padding:20px;
+}
+
+/* ===== CONTAINER ===== */
+.container{
+max-width:1100px;
+margin:auto;
+background:rgba(3,24,39,.9);
+backdrop-filter:blur(15px);
+border:1px solid rgba(56,189,248,.25);
+border-radius:25px;
+padding:40px;
+animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+/* ===== BACK BUTTON ===== */
+.back-btn{
+display:inline-block;
+margin-bottom:25px;
+padding:10px 18px;
+background:#38bdf8;
+color:#021421;
+text-decoration:none;
+border-radius:10px;
+font-weight:600;
+transition:.3s;
+}
+
+.back-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #38bdf8;
+}
+
+/* ===== HEADER ===== */
+.header{
+text-align:center;
+margin-bottom:40px;
+}
+
+.header h1{
+font-size:45px;
+color:#38bdf8;
+}
+
+.header p{
+color:#94a3b8;
+margin-top:10px;
+}
+
+/* ===== GRID ===== */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+/* ===== CARD ===== */
+.card{
+background:linear-gradient(145deg,#061f30,#04131f);
+border:1px solid rgba(56,189,248,.2);
+padding:25px;
+border-radius:20px;
+transition:.4s;
+position:relative;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 35px rgba(56,189,248,.35);
+}
+
+/* glow */
+.card::before{
+content:'';
+position:absolute;
+top:-100%;
+left:-100%;
+width:200%;
+height:200%;
+background:linear-gradient(45deg,transparent,rgba(56,189,248,.15),transparent);
+transform:rotate(45deg);
+transition:.8s;
+}
+
+.card:hover::before{
+top:100%;
+left:100%;
+}
+
+.card h3{
+color:#38bdf8;
+margin-bottom:10px;
+font-size:18px;
+}
+
+.card p{
+color:#94a3b8;
+font-size:14px;
+line-height:1.6;
+margin-bottom:10px;
+}
+
+/* ===== FEATURES ===== */
+.feature{
+font-size:13px;
+color:#cbd5e1;
+margin-bottom:6px;
+}
+
+/* badge */
+.badge{
+display:inline-block;
+margin-top:10px;
+padding:6px 10px;
+background:rgba(56,189,248,.12);
+border:1px solid rgba(56,189,248,.3);
+border-radius:10px;
+font-size:12px;
+}
+
+/* ===== CTA ===== */
+.cta{
+text-align:center;
+margin-top:40px;
+padding:25px;
+background:rgba(56,189,248,.08);
+border:1px solid rgba(56,189,248,.3);
+border-radius:15px;
+}
+
+.cta h2{
+color:#38bdf8;
+margin-bottom:10px;
+}
+
+.cta p{
+color:#94a3b8;
+margin-bottom:15px;
+}
+
+.cta a{
+display:inline-block;
+padding:12px 20px;
+background:#38bdf8;
+color:#021421;
+text-decoration:none;
+border-radius:10px;
+font-weight:600;
+transition:.3s;
+}
+
+.cta a:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #38bdf8;
+}
+
+/* ===== RESPONSIVE FIX ===== */
+@media(max-width:768px){
+
+.container{
+padding:20px;
+}
+
+.header h1{
+font-size:30px;
+}
+
+.header p{
+font-size:14px;
+}
+
+.card{
+padding:20px;
+}
+
+.card h3{
+font-size:16px;
+}
+
+.cta{
+padding:20px;
+}
+
+.cta h2{
+font-size:22px;
+}
+
+.cta p{
+font-size:13px;
+}
+}
+
+@media(max-width:480px){
+
+body{
+padding:10px;
+}
+
+.back-btn{
+padding:8px 14px;
+font-size:13px;
+}
+
+.header h1{
+font-size:26px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back-btn">← Back</a>
+
+<div class="header">
+<h1>My Services</h1>
+<p>Professional Full Stack Development Solutions</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Frontend Development</h3>
+<p>Modern, responsive UI design with clean code.</p>
+<div class="feature">✔ Responsive Design</div>
+<div class="feature">✔ React / JS UI</div>
+<div class="feature">✔ Animations</div>
+<span class="badge">UI/UX Focused</span>
+</div>
+
+<div class="card">
+<h3>Backend Development</h3>
+<p>Secure backend systems with APIs and databases.</p>
+<div class="feature">✔ Node JS</div>
+<div class="feature">✔ Authentication</div>
+<div class="feature">✔ REST APIs</div>
+<span class="badge">Secure Systems</span>
+</div>
+
+<div class="card">
+<h3>Full Stack Development</h3>
+<p>Complete web applications from start to finish.</p>
+<div class="feature">✔ Full Apps</div>
+<div class="feature">✔ Database</div>
+<div class="feature">✔ Deployment</div>
+<span class="badge">Complete Solution</span>
+</div>
+
+<div class="card">
+<h3>API Development</h3>
+<p>Custom APIs for web & mobile apps.</p>
+<div class="feature">✔ REST APIs</div>
+<div class="feature">✔ Integration</div>
+<div class="feature">✔ Secure Data</div>
+<span class="badge">High Performance</span>
+</div>
+
+<div class="card">
+<h3>Website Deployment</h3>
+<p>Hosting and domain setup for websites.</p>
+<div class="feature">✔ Vercel / Netlify</div>
+<div class="feature">✔ Hosting</div>
+<div class="feature">✔ Setup</div>
+<span class="badge">Live Projects</span>
+</div>
+
+<div class="card">
+<h3>Performance Optimization</h3>
+<p>Speed and SEO optimization.</p>
+<div class="feature">✔ Fast Load</div>
+<div class="feature">✔ SEO</div>
+<div class="feature">✔ Optimization</div>
+<span class="badge">Boost Performance</span>
+</div>
+
+</div>
+
+<div class="cta">
+<h2>Need a Website?</h2>
+<p>Let’s build something modern and professional together.</p>
+<a href="contact.html">Hire Me</a>
+</div>
+
+</div>
+
+</body>
+</html>
