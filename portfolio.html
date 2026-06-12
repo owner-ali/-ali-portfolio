@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio - Ali Hassan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:linear-gradient(135deg,#021421,#031827);color:white;padding:20px;}
+.container{max-width:1200px;margin:auto;background:rgba(3,24,39,.9);backdrop-filter:blur(15px);border:1px solid rgba(56,189,248,.25);border-radius:25px;padding:40px;}
+.header{text-align:center;margin-bottom:30px;}
+.header h1{font-size:42px;color:#38bdf8;}
+.header p{color:#94a3b8;margin-top:8px;}
+.top-bar{display:flex;justify-content:center;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:30px;}
+.filters{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;}
+.filters button{padding:10px 18px;border:none;border-radius:10px;cursor:pointer;background:rgba(56,189,248,.12);color:white;border:1px solid rgba(56,189,248,.3);transition:.3s;}
+.filters button:hover,.filters button.active{background:#38bdf8;color:#021421;transform:scale(1.05);}
+.admin-btns{display:flex;gap:10px;}
+.add-btn{padding:12px 22px;background:#ec4899;color:white;border:none;border-radius:12px;cursor:pointer;font-size:14px;font-weight:600;transition:.3s;}
+.add-btn:hover{background:#db2777;transform:scale(1.05);}
+.lock-btn{padding:12px 18px;background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.4);border-radius:12px;cursor:pointer;font-size:14px;font-weight:600;transition:.3s;}
+.lock-btn:hover{background:rgba(56,189,248,.25);}
+.lock-btn.unlocked{background:rgba(34,197,94,.15);color:#22c55e;border-color:rgba(34,197,94,.4);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px;}
+.card{background:linear-gradient(145deg,#061f30,#04131f);border:1px solid rgba(56,189,248,.2);border-radius:20px;overflow:hidden;transition:.4s;position:relative;}
+.card:hover{transform:translateY(-10px);box-shadow:0 0 40px rgba(56,189,248,.35);}
+.card img{width:100%;height:200px;object-fit:cover;}
+.card-placeholder{width:100%;height:200px;background:linear-gradient(135deg,#0c3a58,#082d44);display:flex;align-items:center;justify-content:center;font-size:48px;}
+.badge-feat{position:absolute;top:12px;left:12px;background:#ec4899;padding:5px 10px;font-size:11px;border-radius:8px;}
+.badge-new{position:absolute;top:12px;left:12px;background:#22c55e;padding:5px 10px;font-size:11px;border-radius:8px;color:#021421;font-weight:600;}
+.content{padding:20px;}
+.title{color:#38bdf8;font-size:18px;margin-bottom:8px;font-weight:600;}
+.desc{font-size:14px;color:#94a3b8;margin-bottom:12px;line-height:1.6;}
+.stats{display:flex;justify-content:space-between;margin-bottom:15px;font-size:12px;color:#cbd5e1;flex-wrap:wrap;gap:5px;}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:15px;}
+.tag{font-size:12px;padding:5px 10px;border-radius:8px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25);}
+.btns{display:flex;gap:10px;}
+.btn{flex:1;text-align:center;padding:10px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;}
+.live{background:#38bdf8;color:#021421;}
+.view{border:1px solid #38bdf8;color:white;}
+/* Card action buttons - sirf admin mode mein dikhein */
+.card-actions{position:absolute;top:10px;right:10px;display:none;gap:6px;flex-direction:column;}
+body.admin-mode .card-actions{display:flex;}
+.edit-card-btn{background:rgba(56,189,248,.85);border:none;color:#021421;border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;font-weight:600;}
+.del-card-btn{background:rgba(239,68,68,.85);border:none;color:white;border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;font-weight:600;}
+.cta{margin-top:50px;text-align:center;padding:30px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.3);border-radius:15px;}
+.cta h2{color:#38bdf8;margin-bottom:10px;}
+.cta p{color:#94a3b8;margin-bottom:15px;}
+.cta a{display:inline-block;padding:12px 20px;background:#38bdf8;color:#021421;text-decoration:none;border-radius:10px;font-weight:600;}
+
+/* MODALS */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:1000;justify-content:center;align-items:center;padding:20px;}
+.modal-overlay.active{display:flex;}
+.modal{background:#031827;border:1px solid rgba(56,189,248,.4);border-radius:20px;padding:35px;width:100%;max-width:550px;max-height:90vh;overflow-y:auto;}
+.modal h2{color:#38bdf8;font-size:22px;margin-bottom:22px;}
+.form-group{margin-bottom:15px;}
+.form-group label{display:block;font-size:13px;color:#94a3b8;margin-bottom:5px;}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:11px 13px;background:#04131f;border:1px solid rgba(56,189,248,.3);border-radius:10px;color:white;font-family:'Poppins',sans-serif;font-size:14px;outline:none;transition:.3s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#38bdf8;box-shadow:0 0 8px rgba(56,189,248,.2);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#475569;}
+.form-group select option{background:#04131f;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.img-preview{width:100%;height:120px;background:#04131f;border:1px dashed rgba(56,189,248,.3);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#475569;font-size:13px;margin-top:6px;overflow:hidden;}
+.img-preview img{width:100%;height:100%;object-fit:cover;}
+.modal-btns{display:flex;gap:12px;margin-top:18px;}
+.modal-save{flex:1;padding:13px;background:#38bdf8;color:#021421;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;transition:.3s;}
+.modal-save:hover{transform:scale(1.03);}
+.modal-cancel{flex:1;padding:13px;background:transparent;color:white;border:1px solid rgba(255,255,255,.2);border-radius:12px;font-size:14px;cursor:pointer;transition:.3s;}
+.modal-cancel:hover{background:rgba(255,255,255,.08);}
+
+/* PASSWORD MODAL */
+.pass-modal{background:#031827;border:1px solid rgba(56,189,248,.4);border-radius:20px;padding:35px;width:100%;max-width:380px;text-align:center;}
+.pass-modal h2{color:#38bdf8;font-size:20px;margin-bottom:8px;}
+.pass-modal p{color:#94a3b8;font-size:13px;margin-bottom:20px;}
+.pass-input{width:100%;padding:13px;background:#04131f;border:1px solid rgba(56,189,248,.3);border-radius:10px;color:white;font-size:16px;outline:none;text-align:center;letter-spacing:4px;transition:.3s;}
+.pass-input:focus{border-color:#38bdf8;}
+.pass-error{color:#ef4444;font-size:13px;margin-top:8px;display:none;}
+.pass-btns{display:flex;gap:10px;margin-top:16px;}
+.pass-ok{flex:1;padding:12px;background:#38bdf8;color:#021421;border:none;border-radius:10px;font-weight:700;cursor:pointer;transition:.3s;}
+.pass-ok:hover{transform:scale(1.03);}
+.pass-cancel{flex:1;padding:12px;background:transparent;color:white;border:1px solid rgba(255,255,255,.2);border-radius:10px;cursor:pointer;transition:.3s;}
+.pass-cancel:hover{background:rgba(255,255,255,.08);}
+.admin-badge{display:none;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);color:#22c55e;padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;}
+body.admin-mode .admin-badge{display:inline-block;}
+
+@media(max-width:768px){
+  .header h1{font-size:28px;}
+  .container{padding:20px;}
+  .btns{flex-direction:column;}
+  .btn{width:100%;}
+  .form-row{grid-template-columns:1fr;}
+  .admin-btns{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>My Portfolio</h1>
+    <p>Full Stack Developer | Real World Projects</p>
+    <div style="margin-top:10px;">
+      <span class="admin-badge">🟢 Admin Mode — Edit Mode On</span>
+    </div>
+  </div>
+
+  <div class="top-bar">
+    <div class="filters">
+      <button onclick="filter('all')" class="active">All</button>
+      <button onclick="filter('web')">Web</button>
+      <button onclick="filter('ui')">UI/UX</button>
+      <button onclick="filter('full')">Full Stack</button>
+    </div>
+    <div class="admin-btns">
+      <button class="lock-btn" id="lockBtn" onclick="toggleAdmin()">🔒 Admin Login</button>
+      <button class="add-btn" id="addBtn" style="display:none" onclick="openModal('add')">➕ Add Project</button>
+    </div>
+  </div>
+
+  <div class="grid" id="projectGrid">
+
+    <div class="card web full" data-id="default1"
+      data-title="E-Commerce Platform"
+      data-desc="Complete shopping system with cart, login and payment UI."
+      data-cat="web full"
+      data-rating="4.9"
+      data-tags="React,Node,MongoDB"
+      data-live="contact.html"
+      data-detail="ecommer.html"
+      data-img="download (7).jpg">
+      <span class="badge-feat">Featured</span>
+      <div class="card-actions">
+        <button class="edit-card-btn" onclick="openEditModal(this.closest('.card'))">✏️ Edit</button>
+        <button class="del-card-btn" onclick="deleteCard(this.closest('.card'))">🗑 Delete</button>
+      </div>
+      <img src="download (7).jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="card-placeholder" style="display:none">🛒</div>
+      <div class="content">
+        <div class="title">E-Commerce Platform</div>
+        <div class="desc">Complete shopping system with cart, login and payment UI.</div>
+        <div class="stats"><span>⭐ 4.9</span><span>⚡ Fast</span><span>🔥 Live</span></div>
+        <div class="tags"><span class="tag">React</span><span class="tag">Node</span><span class="tag">MongoDB</span></div>
+        <div class="btns">
+          <a href="contact.html" class="btn live">Live</a>
+          <a href="ecommer.html" class="btn view">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card web" data-id="default2"
+      data-title="Agency Website"
+      data-desc="Modern business website with animations and SEO structure."
+      data-cat="web"
+      data-rating="4.7"
+      data-tags="HTML,CSS,JS"
+      data-live="contact.html"
+      data-detail="agency.html"
+      data-img="download (8).jpg">
+      <div class="card-actions">
+        <button class="edit-card-btn" onclick="openEditModal(this.closest('.card'))">✏️ Edit</button>
+        <button class="del-card-btn" onclick="deleteCard(this.closest('.card'))">🗑 Delete</button>
+      </div>
+      <img src="download (8).jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="card-placeholder" style="display:none">🏢</div>
+      <div class="content">
+        <div class="title">Agency Website</div>
+        <div class="desc">Modern business website with animations and SEO structure.</div>
+        <div class="stats"><span>⭐ 4.7</span><span>⚡ Fast</span><span>🔥 Responsive</span></div>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+        <div class="btns">
+          <a href="contact.html" class="btn live">Live</a>
+          <a href="agency.html" class="btn view">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card full" data-id="default3"
+      data-title="Admin Dashboard"
+      data-desc="Analytics dashboard with charts and backend system."
+      data-cat="full"
+      data-rating="5.0"
+      data-tags="API,Node,Charts"
+      data-live="contact.html"
+      data-detail="admin.html"
+      data-img="download (9).jpg">
+      <div class="card-actions">
+        <button class="edit-card-btn" onclick="openEditModal(this.closest('.card'))">✏️ Edit</button>
+        <button class="del-card-btn" onclick="deleteCard(this.closest('.card'))">🗑 Delete</button>
+      </div>
+      <img src="download (9).jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="card-placeholder" style="display:none">📊</div>
+      <div class="content">
+        <div class="title">Admin Dashboard</div>
+        <div class="desc">Analytics dashboard with charts and backend system.</div>
+        <div class="stats"><span>⭐ 5.0</span><span>⚡ Secure</span><span>🔥 Scalable</span></div>
+        <div class="tags"><span class="tag">API</span><span class="tag">Node</span><span class="tag">Charts</span></div>
+        <div class="btns">
+          <a href="contact.html" class="btn live">Live</a>
+          <a href="admin.html" class="btn view">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card web" data-id="default4"
+      data-title="Modern Blog Platform"
+      data-desc="Responsive blogging website with categories and SEO."
+      data-cat="web"
+      data-rating="4.6"
+      data-tags="HTML,CSS,JS"
+      data-live="contact.html"
+      data-detail="blog.html"
+      data-img="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80">
+      <div class="card-actions">
+        <button class="edit-card-btn" onclick="openEditModal(this.closest('.card'))">✏️ Edit</button>
+        <button class="del-card-btn" onclick="deleteCard(this.closest('.card'))">🗑 Delete</button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80">
+      <div class="content">
+        <div class="title">Modern Blog Platform</div>
+        <div class="desc">Responsive blogging website with categories and SEO.</div>
+        <div class="stats"><span>⭐ 4.6</span><span>📝 Blog</span><span>⚡ Fast</span></div>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+        <div class="btns">
+          <a href="contact.html" class="btn live">Live</a>
+          <a href="blog.html" class="btn view">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card full" data-id="default5"
+      data-title="Developer Dashboard"
+      data-desc="Project tracking dashboard with analytics and tasks."
+      data-cat="full"
+      data-rating="5.0"
+      data-tags="React,Node,API"
+      data-live="contact.html"
+      data-detail="develphor.html"
+      data-img="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80">
+      <div class="card-actions">
+        <button class="edit-card-btn" onclick="openEditModal(this.closest('.card'))">✏️ Edit</button>
+        <button class="del-card-btn" onclick="deleteCard(this.closest('.card'))">🗑 Delete</button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80">
+      <div class="content">
+        <div class="title">Developer Dashboard</div>
+        <div class="desc">Project tracking dashboard with analytics and tasks.</div>
+        <div class="stats"><span>⭐ 5.0</span><span>📊 Data</span><span>🔥 Pro</span></div>
+        <div class="tags"><span class="tag">React</span><span class="tag">Node</span><span class="tag">API</span></div>
+        <div class="btns">
+          <a href="contact.html" class="btn live">Live</a>
+          <a href="develphor.html" class="btn view">Details</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card ui" data-id="default6"
+      data-title="Product Landing Page"
+      data-desc="High-conversion landing page for marketing &amp; sales."
+      data-cat="ui"
+      data-rating="4.8"
+      data-tags="UI/UX,HTML,CSS"
+      data-live="contact.html"
+      data-detail="landing.html"
+      data-img="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80">
+      <div class="card-actions">
+        <button class="edit-card-btn" onclick="openEditModal(this.closest('.card'))">✏️ Edit</button>
+        <button class="del-card-btn" onclick="deleteCard(this.closest('.card'))">🗑 Delete</button>
+      </div>
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80">
+      <div class="content">
+        <div class="title">Product Landing Page</div>
+        <div class="desc">High-conversion landing page for marketing & sales.</div>
+        <div class="stats"><span>⭐ 4.8</span><span>🚀 Marketing</span><span>💰 Sales</span></div>
+        <div class="tags"><span class="tag">UI/UX</span><span class="tag">HTML</span><span class="tag">CSS</span></div>
+        <div class="btns">
+          <a href="contact.html" class="btn live">Live</a>
+          <a href="landing.html" class="btn view">Details</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cta">
+    <h2>Want a Similar Project?</h2>
+    <p>I can build professional websites for your business.</p>
+    <a href="contact.html">Hire Me</a>
+  </div>
+</div>
+
+<!-- PASSWORD MODAL -->
+<div class="modal-overlay" id="passOverlay">
+  <div class="pass-modal">
+    <h2>🔐 Admin Login</h2>
+    <p>Sirf Ali Hassan edit kar sakta hai</p>
+    <input type="password" class="pass-input" id="passInput" placeholder="••••••" maxlength="20">
+    <div class="pass-error" id="passError">❌ Galat password! Dobara try karo.</div>
+    <div class="pass-btns">
+      <button class="pass-cancel" onclick="closePassModal()">Cancel</button>
+      <button class="pass-ok" onclick="checkPassword()">Login ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD / EDIT PROJECT MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">➕ Naya Project Add Karo</h2>
+
+    <div class="form-group">
+      <label>Project Title *</label>
+      <input type="text" id="proj-title" placeholder="e.g. Restaurant Website">
+    </div>
+    <div class="form-group">
+      <label>Description *</label>
+      <textarea id="proj-desc" rows="3" placeholder="Project ke baare mein likhein..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="proj-cat">
+          <option value="web">Web</option>
+          <option value="ui">UI/UX</option>
+          <option value="full">Full Stack</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Rating (1-5)</label>
+        <input type="number" id="proj-rating" placeholder="4.8" min="1" max="5" step="0.1">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Technologies (comma se alag karo)</label>
+      <input type="text" id="proj-tags" placeholder="e.g. React, Node, MongoDB">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Live Link</label>
+        <input type="text" id="proj-live" placeholder="contact.html ya https://...">
+      </div>
+      <div class="form-group">
+        <label>Details Page</label>
+        <input type="text" id="proj-details" placeholder="details.html">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Image URL (optional)</label>
+      <input type="text" id="proj-img" placeholder="https://... ya local file name">
+      <div class="img-preview" id="imgPreview">🖼️ Image URL likhne par preview ayega</div>
+    </div>
+
+    <input type="hidden" id="editing-id">
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveProject()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ PASSWORD ============
+const ADMIN_PASS = 'ali123'; // <<< YEH APNA PASSWORD BADLO
+let isAdmin = false;
+
+function toggleAdmin(){
+  if(isAdmin){
+    isAdmin = false;
+    document.body.classList.remove('admin-mode');
+    document.getElementById('lockBtn').textContent = '🔒 Admin Login';
+    document.getElementById('lockBtn').classList.remove('unlocked');
+    document.getElementById('addBtn').style.display = 'none';
+  } else {
+    document.getElementById('passOverlay').classList.add('active');
+    setTimeout(()=> document.getElementById('passInput').focus(), 100);
+  }
+}
+
+function checkPassword(){
+  const val = document.getElementById('passInput').value;
+  if(val === ADMIN_PASS){
+    isAdmin = true;
+    document.body.classList.add('admin-mode');
+    document.getElementById('lockBtn').textContent = '🔓 Logout';
+    document.getElementById('lockBtn').classList.add('unlocked');
+    document.getElementById('addBtn').style.display = 'flex';
+    closePassModal();
+    loadSavedProjects();
+  } else {
+    document.getElementById('passError').style.display = 'block';
+    document.getElementById('passInput').value = '';
+    document.getElementById('passInput').focus();
+  }
+}
+
+function closePassModal(){
+  document.getElementById('passOverlay').classList.remove('active');
+  document.getElementById('passInput').value = '';
+  document.getElementById('passError').style.display = 'none';
+}
+
+document.getElementById('passInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter') checkPassword();
+});
+
+// ============ SAVED PROJECTS (localStorage) ============
+function loadSavedProjects(){
+  const saved = JSON.parse(localStorage.getItem('portfolioProjects') || '[]');
+  // Remove previously rendered saved cards (avoid duplicates)
+  document.querySelectorAll('.card[data-saved="true"]').forEach(c => c.remove());
+  saved.forEach(p => renderNewCard(p));
+}
+
+function renderNewCard(p){
+  const grid = document.getElementById('projectGrid');
+  const card = document.createElement('div');
+  const catClass = (p.category || 'web').replace(/\s+/g,' ');
+  card.className = 'card ' + catClass;
+  card.dataset.id = p.id;
+  card.dataset.saved = 'true';
+  card.dataset.title = p.title;
+  card.dataset.desc = p.desc;
+  card.dataset.cat = p.category;
+  card.dataset.rating = p.rating || '';
+  card.dataset.tags = (p.tags||[]).join(',');
+  card.dataset.live = p.liveLink || 'contact.html';
+  card.dataset.detail = p.detailLink || '#';
+  card.dataset.img = p.img || '';
+
+  const emoji = {web:'🌐', ui:'🎨', full:'⚙️'}[p.category] || '💻';
+  const tagsHTML = (p.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+  const imgPart = p.img ? `<img src="${p.img}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
+
+  card.innerHTML = `
+    <span class="badge-new">New</span>
+    <div class="card-actions">
+      <button class="edit-card-btn" onclick="openEditModal(this.closest('.card'))">✏️ Edit</button>
+      <button class="del-card-btn" onclick="deleteCard(this.closest('.card'))">🗑 Delete</button>
+    </div>
+    ${imgPart}
+    <div class="card-placeholder" style="display:${p.img?'none':'flex'}">${emoji}</div>
+    <div class="content">
+      <div class="title">${p.title}</div>
+      <div class="desc">${p.desc}</div>
+      <div class="stats">${p.rating?`<span>⭐ ${p.rating}</span>`:''}<span>🚀 New</span></div>
+      <div class="tags">${tagsHTML}</div>
+      <div class="btns">
+        <a href="${p.liveLink||'contact.html'}" class="btn live">Live</a>
+        <a href="${p.detailLink||'#'}" class="btn view">Details</a>
+      </div>
+    </div>`;
+  grid.appendChild(card);
+}
+
+// ============ DELETE ============
+function deleteCard(card){
+  if(!isAdmin){ alert('Pehle Admin Login karo!'); return; }
+  if(!confirm('Yeh project delete karna chahte ho?')) return;
+  const id = card.dataset.id;
+  card.remove();
+  // Agar saved card hai toh localStorage se bhi hatao
+  if(card.dataset.saved === 'true'){
+    const saved = JSON.parse(localStorage.getItem('portfolioProjects')||'[]');
+    localStorage.setItem('portfolioProjects', JSON.stringify(saved.filter(p=>p.id!==id)));
+  }
+}
+
+// ============ MODAL OPEN/CLOSE ============
+let editingCard = null;
+
+function openModal(mode){
+  if(!isAdmin){ alert('Pehle Admin Login karo!'); return; }
+  editingCard = null;
+  document.getElementById('modalTitle').textContent = '➕ Naya Project Add Karo';
+  document.getElementById('editing-id').value = '';
+  clearForm();
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function openEditModal(card){
+  if(!isAdmin){ alert('Pehle Admin Login karo!'); return; }
+  editingCard = card;
+  document.getElementById('modalTitle').textContent = '✏️ Project Edit Karo';
+  document.getElementById('editing-id').value = card.dataset.id;
+
+  document.getElementById('proj-title').value = card.dataset.title || '';
+  document.getElementById('proj-desc').value = card.dataset.desc || '';
+  document.getElementById('proj-cat').value = (card.dataset.cat||'web').split(' ')[0];
+  document.getElementById('proj-rating').value = card.dataset.rating || '';
+  document.getElementById('proj-tags').value = card.dataset.tags || '';
+  document.getElementById('proj-live').value = card.dataset.live || '';
+  document.getElementById('proj-details').value = card.dataset.detail || '';
+  document.getElementById('proj-img').value = card.dataset.img || '';
+
+  const url = card.dataset.img;
+  const preview = document.getElementById('imgPreview');
+  preview.innerHTML = url ? `<img src="${url}">` : '🖼️ Image URL likhne par preview ayega';
+
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('active');
+  editingCard = null;
+  clearForm();
+}
+
+function clearForm(){
+  ['proj-title','proj-desc','proj-rating','proj-tags','proj-live','proj-details','proj-img'].forEach(id=>{
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('proj-cat').value = 'web';
+  document.getElementById('imgPreview').innerHTML = '🖼️ Image URL likhne par preview ayega';
+  document.getElementById('editing-id').value = '';
+}
+
+// ============ SAVE (ADD or EDIT) ============
+function saveProject(){
+  const title = document.getElementById('proj-title').value.trim();
+  const desc  = document.getElementById('proj-desc').value.trim();
+  if(!title || !desc){ alert('Title aur Description zaroor likhein!'); return; }
+
+  const cat      = document.getElementById('proj-cat').value;
+  const rating   = document.getElementById('proj-rating').value;
+  const tagsRaw  = document.getElementById('proj-tags').value;
+  const tags     = tagsRaw.split(',').map(t=>t.trim()).filter(Boolean);
+  const liveLink = document.getElementById('proj-live').value.trim() || 'contact.html';
+  const detailLink = document.getElementById('proj-details').value.trim() || '#';
+  const img      = document.getElementById('proj-img').value.trim();
+  const editId   = document.getElementById('editing-id').value;
+
+  if(editingCard){
+    // --- EDIT existing card ---
+    editingCard.className = 'card ' + cat + (editingCard.dataset.saved==='true' ? ' saved' : '');
+    if(editingCard.dataset.saved==='true') editingCard.dataset.saved='true';
+
+    // Update data attrs
+    editingCard.dataset.title  = title;
+    editingCard.dataset.desc   = desc;
+    editingCard.dataset.cat    = cat;
+    editingCard.dataset.rating = rating;
+    editingCard.dataset.tags   = tags.join(',');
+    editingCard.dataset.live   = liveLink;
+    editingCard.dataset.detail = detailLink;
+    editingCard.dataset.img    = img;
+
+    // Update visible content
+    editingCard.querySelector('.title').textContent = title;
+    editingCard.querySelector('.desc').textContent  = desc;
+
+    // Image
+    let imgEl = editingCard.querySelector('img:not(.badge-feat)');
+    let placeholder = editingCard.querySelector('.card-placeholder');
+    if(!imgEl){
+      imgEl = document.createElement('img');
+      editingCard.insertBefore(imgEl, placeholder);
+    }
+    if(img){
+      imgEl.src = img;
+      imgEl.style.display = '';
+      imgEl.onerror = function(){ this.style.display='none'; placeholder.style.display='flex'; };
+      placeholder.style.display = 'none';
+    } else {
+      imgEl.style.display = 'none';
+      placeholder.style.display = 'flex';
+    }
+
+    // Tags
+    const tagsDiv = editingCard.querySelector('.tags');
+    tagsDiv.innerHTML = tags.map(t=>`<span class="tag">${t}</span>`).join('');
+
+    // Stats rating
+    const statsDiv = editingCard.querySelector('.stats');
+    const firstSpan = statsDiv.querySelector('span');
+    if(firstSpan && rating) firstSpan.textContent = '⭐ ' + rating;
+
+    // Buttons
+    const btnsDiv = editingCard.querySelector('.btns');
+    btnsDiv.innerHTML = `<a href="${liveLink}" class="btn live">Live</a><a href="${detailLink}" class="btn view">Details</a>`;
+
+    // Update localStorage if saved card
+    if(editingCard.dataset.saved === 'true'){
+      const saved = JSON.parse(localStorage.getItem('portfolioProjects')||'[]');
+      const idx = saved.findIndex(p=>p.id===editId);
+      if(idx>-1){
+        saved[idx] = {...saved[idx], title, desc, category:cat, rating, tags, liveLink, detailLink, img};
+        localStorage.setItem('portfolioProjects', JSON.stringify(saved));
+      }
+    }
+  } else {
+    // --- ADD new card ---
+    const project = {
+      id:'proj_'+Date.now(), title, desc,
+      category:cat, rating, tags, liveLink, detailLink, img
+    };
+    const saved = JSON.parse(localStorage.getItem('portfolioProjects')||'[]');
+    saved.push(project);
+    localStorage.setItem('portfolioProjects', JSON.stringify(saved));
+    renderNewCard(project);
+  }
+
+  closeModal();
+}
+
+// ============ FILTER ============
+function filter(category){
+  document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.card').forEach(card=>{
+    card.style.display = (category==='all' || card.classList.contains(category)) ? 'block' : 'none';
+  });
+}
+
+// ============ IMG PREVIEW ============
+document.getElementById('proj-img').addEventListener('input', function(){
+  const preview = document.getElementById('imgPreview');
+  const url = this.value.trim();
+  preview.innerHTML = url
+    ? `<img src="${url}" onerror="this.parentElement.innerHTML='❌ Image load nahi hui'">`
+    : '🖼️ Image URL likhne par preview ayega';
+});
+
+// Close modals on overlay click
+document.getElementById('modalOverlay').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.getElementById('passOverlay').addEventListener('click', function(e){ if(e.target===this) closePassModal(); });
+</script>
+</body>
+</html>
